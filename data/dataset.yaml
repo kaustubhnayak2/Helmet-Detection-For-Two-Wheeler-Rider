@@ -1,0 +1,8 @@
+names:
+- with_helmet
+- without_helmet
+nc: 2
+path: C:\Users\kaust\Pictures\Screenshots\helmet_detection_project\data
+test: test/images
+train: train/images
+val: val/images

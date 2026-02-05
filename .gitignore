@@ -1,0 +1,83 @@
+# Helmet Detection Project - .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Model weights (large files)
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.pb
+
+# Dataset (can be large)
+data/raw/*
+data/processed/*
+data/train/*
+data/val/*
+data/test/*
+!data/.gitkeep
+
+# Results
+results/
+demo_results/
+*.mp4
+*.avi
+*.mov
+
+# Sample images (optional - remove if you want to commit samples)
+sample_images/
+
+# Logs
+*.log
+logs/
+runs/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
