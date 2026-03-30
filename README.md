@@ -120,7 +120,7 @@ python src/detect.py --source path/to/images/ --save results/batch_output/
 Launch the interactive web interface:
 
 ```bash
-streamlit run web_app/app.py
+python flask_app/app.py
 ```
 
 Then open your browser to `http://localhost:8501`
