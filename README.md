@@ -123,7 +123,7 @@ Launch the interactive web interface:
 python flask_app/app.py
 ```
 
-Then open your browser to `http://localhost:8501`
+Then open your browser to `http://localhost:5000`
 
 **Features:**
 - Upload and detect on images
