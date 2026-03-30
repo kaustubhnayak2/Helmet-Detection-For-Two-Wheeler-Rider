@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 4rem; animation: fadeIn 0.8s ease-out;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #93c5fd, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Intelligent Safety Monitoring
+    </h1>
+    <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+        Detect two-wheeler riders without helmets in real-time.
+    </p>
+</div>
+
+<div class="grid-container">
+    <a href="{{ url_for('detect_image') }}" class="card glass">
+        <div class="icon">🖼️</div>
+        <h3>Image Analysis</h3>
+        <p style="color: var(--text-muted);">Upload photos to instantly verify helmet compliance of riders.</p>
+    </a>
+    
+    <a href="{{ url_for('detect_video') }}" class="card glass">
+        <div class="icon">🎥</div>
+        <h3>Video Processing</h3>
+        <p style="color: var(--text-muted);">Analyze pre-recorded traffic footage for safety violations.</p>
+    </a>
+    
+    <a href="{{ url_for('webcam') }}" class="card glass">
+        <div class="icon">🔴</div>
+        <h3>Live Webcam</h3>
+        <p style="color: var(--text-muted);">Real-time monitoring using your camera feed.</p>
+    </a>
+</div>
+{% endblock %}

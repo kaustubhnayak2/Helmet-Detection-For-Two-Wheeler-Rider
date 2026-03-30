@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Video Detection | HelmetGuard UI{% endblock %}
+
+{% block content %}
+<div class="glass" style="padding: 2rem; max-width: 900px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Video Helmet Detection</h2>
+
+    {% if not video_ready %}
+    <div class="upload-container" id="upload-zone" onclick="document.getElementById('video-upload').click()">
+        <div class="icon" style="font-size: 4rem; color: #3b82f6;">🎥</div>
+        <h3>Upload a Video</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Click here or drag and drop an MP4 video (Max 50MB)
+        </p>
+        <button class="btn-primary">Select Video</button>
+        <form id="upload-form" method="POST" enctype="multipart/form-data" style="display: none;">
+            <input type="file" id="video-upload" name="video" accept="video/mp4"
+                onchange="document.getElementById('upload-form').submit(); document.getElementById('loader').style.display = 'block';">
+        </form>
+    </div>
+    <div class="loader" id="loader"></div>
+    {% else %}
+    <div class="video-container" style="text-align: center;">
+        <div
+            style="background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 480px; width: 100%;">
+            <img src="{{ url_for('video_feed', source='upload') }}" class="video-feed"
+                style="max-height: 720px; max-width: 100%; object-fit: contain; width: auto; height: auto;"
+                alt="Video feed">
+        </div>
+
+        <div style="margin-top: 2rem; margin-bottom: 2rem;">
+            <a href="{{ url_for('detect_video') }}" class="btn-primary"
+                style="background: rgba(255, 255, 255, 0.1);">Upload Another Video</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

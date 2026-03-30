@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Image Detection | HelmetGuard UI{% endblock %}
+
+{% block content %}
+<div class="glass" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Image Helmet Detection</h2>
+    
+    <div class="upload-container" id="upload-zone" onclick="document.getElementById('image-upload').click()">
+        <div class="icon" style="font-size: 4rem; color: #3b82f6;">📸</div>
+        <h3>Upload an Image</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Click here or drag and drop an image to upload</p>
+        <button class="btn-primary">Select Image</button>
+        <form id="upload-form" style="display: none;">
+            <input type="file" id="image-upload" name="image" accept="image/*" onchange="submitForm()">
+        </form>
+    </div>
+
+    <div class="loader" id="loader"></div>
+
+    <div class="result-section" id="result-section">
+        <h3 style="text-align: center; margin-bottom: 1rem;">Detection Results</h3>
+        <img id="result-image" class="result-image" src="" alt="Detection result">
+        
+        <div class="metrics-row">
+            <div class="metric-card glass">
+                <div class="metric-value val-blue" id="val-total">0</div>
+                <div style="color: var(--text-muted);">Total Detected</div>
+            </div>
+            <div class="metric-card glass">
+                <div class="metric-value val-green" id="val-helmet">0</div>
+                <div style="color: var(--text-muted);">With Helmet</div>
+            </div>
+            <div class="metric-card glass">
+                <div class="metric-value val-red" id="val-no-helmet">0</div>
+                <div style="color: var(--text-muted);">No Helmet</div>
+            </div>
+            <div class="metric-card glass">
+                <div class="metric-value" id="val-time" style="font-size: 1.5rem; margin-top: 1rem;">0s</div>
+                <div style="color: var(--text-muted);">Latency</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const uploadZone = document.getElementById('upload-zone');
+    
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = '#60a5fa';
+        uploadZone.style.background = 'rgba(59, 130, 246, 0.1)';
+    });
+
+    uploadZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+        uploadZone.style.background = 'transparent';
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+        uploadZone.style.background = 'transparent';
+        
+        const files = e.dataTransfer.files;
+        if(files.length > 0) {
+            document.getElementById('image-upload').files = files;
+            submitForm();
+        }
+    });
+
+    function submitForm() {
+        const fileInput = document.getElementById('image-upload');
+        if (!fileInput.files.length) return;
+
+        const formData = new FormData();
+        formData.append('image', fileInput.files[0]);
+
+        document.getElementById('loader').style.display = 'block';
+        document.getElementById('result-section').style.display = 'none';
+
+        fetch("{{ url_for('detect_image') }}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('loader').style.display = 'none';
+            if(data.error) {
+                alert(data.error);
+                return;
+            }
+            
+            document.getElementById('result-image').src = "data:image/jpeg;base64," + data.image;
+            document.getElementById('val-total').textContent = data.detections;
+            document.getElementById('val-helmet').textContent = data.with_helmet;
+            document.getElementById('val-no-helmet').textContent = data.without_helmet;
+            document.getElementById('val-time').textContent = data.time;
+            
+            document.getElementById('result-section').style.display = 'block';
+        })
+        .catch(error => {
+            document.getElementById('loader').style.display = 'none';
+            alert('Error processing image');
+            console.error(error);
+        });
+    }
+</script>
+{% endblock %}

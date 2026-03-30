@@ -10,15 +10,11 @@ from pathlib import Path
 import albumentations as A
 from tqdm import tqdm
 
-# Paths
-INPUT_DIR = Path("./data/Helmet")  # original images
-OUTPUT_DIR = Path("./data/processed")  # augmented images
+INPUT_DIR = Path("./data/Helmet")
+OUTPUT_DIR = Path("./data/processed")  
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+AUGMENT_PER_IMAGE = 1  
 
-# Number of augmented images per original image
-AUGMENT_PER_IMAGE = 1  # Adjust to balance dataset
-
-# Define augmentation pipeline
 transform = A.Compose([
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.2),
@@ -31,20 +27,16 @@ transform = A.Compose([
     A.ToGray(p=1.0)
 ])
 
-# Collect all images
 image_extensions = ['.jpg', '.jpeg', '.png', '.bmp']
 image_files = [f for ext in image_extensions for f in INPUT_DIR.glob(f"*{ext}")]
+
 print(f"Found {len(image_files)} images to augment.")
 
-# Start augmentation
 augmented_count = 0
 for img_path in tqdm(image_files, desc="Augmenting images"):
     img = cv2.imread(str(img_path))
     if img is None:
         continue
-    
-    # Save original image to output (optional)
-    # cv2.imwrite(str(OUTPUT_DIR / img_path.name), img)
     
     for i in range(AUGMENT_PER_IMAGE):
         augmented = transform(image=img)['image']
