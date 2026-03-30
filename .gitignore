@@ -42,13 +42,6 @@ venv.bak/
 .ipynb_checkpoints
 *.ipynb
 
-# Model weights (large files)
-*.pt
-*.pth
-*.onnx
-*.tflite
-*.pb
-
 # Dataset (can be large)
 data/raw/*
 data/processed/*
