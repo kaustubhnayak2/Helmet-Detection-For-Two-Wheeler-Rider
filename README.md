@@ -23,7 +23,6 @@ An AI/ML-powered computer vision system that detects whether two-wheeler riders 
 The system detects three classes:
 - 🟢 **with_helmet**: Rider wearing a helmet (Safe)
 - 🔴 **without_helmet**: Rider not wearing a helmet (Unsafe)
-- 🔵 **rider**: Person on two-wheeler
 
 ## 🚀 Quick Start
 
@@ -307,31 +306,6 @@ Expected performance metrics (on well-prepared dataset):
 4. **Smart City Integration**: Real-time safety monitoring systems
 5. **Research**: Road safety studies and statistics
 
-## 🔧 Troubleshooting
-
-### Model not found
-```bash
-# Download YOLOv8 weights manually
-wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -P models/
-```
-
-### CUDA out of memory
-- Reduce batch size in `config.py`
-- Use smaller model (yolov8n instead of yolov8s/m/l)
-- Reduce image size
-
-### Low FPS on webcam
-- Use GPU if available
-- Reduce image size
-- Skip frames (increase `frame_skip` in config)
-- Use yolov8n (fastest model)
-
-### Poor detection accuracy
-- Collect more training data
-- Increase training epochs
-- Use data augmentation
-- Try larger model (yolov8m or yolov8l)
-
 ## 📚 Dataset Resources
 
 Public datasets for helmet detection:
@@ -347,17 +321,6 @@ Public datasets for helmet detection:
    - Collect diverse images (different angles, lighting, weather)
    - Minimum 1000+ images recommended
 
-## 🤝 Contributing
-
-Contributions are welcome! Areas for improvement:
-
-- [ ] Add more detection classes (bike type, license plate)
-- [ ] Implement tracking for video analysis
-- [ ] Add alert system for violations
-- [ ] Mobile app integration
-- [ ] Cloud deployment guide
-- [ ] Performance optimization
-
 ## 📄 License
 
 This project is licensed under the MIT License.
@@ -366,26 +329,8 @@ This project is licensed under the MIT License.
 
 - **Ultralytics** for YOLOv8 framework
 - **OpenCV** for computer vision tools
-- **Streamlit** for web interface
+- **Flask** for web interface
 - Open-source community for datasets and resources
-
-## 📞 Support
-
-For issues, questions, or suggestions:
-- Open an issue on GitHub
-- Check documentation in `docs/` folder
-- Review example notebooks in `notebooks/`
-
-## 🚦 Roadmap
-
-- [x] Basic detection system
-- [x] Web interface
-- [x] Training pipeline
-- [ ] Mobile app
-- [ ] Cloud deployment
-- [ ] Real-time alerts
-- [ ] Analytics dashboard
-- [ ] Multi-camera support
 
 ---
 
