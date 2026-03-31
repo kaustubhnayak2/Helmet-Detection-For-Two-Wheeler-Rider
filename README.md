@@ -241,7 +241,7 @@ helmet_detection_project/
 │   ├── train.py              # Training script
 │   ├── detect.py             # Detection script
 │   └── utils.py              # Utility functions
-├── web_app/                   # Web application
+├── flask_app/                   # Web application
 │   ├── app.py                # Streamlit app
 │   ├── static/               # CSS, JS, images
 │   └── templates/            # HTML templates
